@@ -16,6 +16,9 @@ class Sundials < Formula
 
   option "without-check", "Skip build-time checks and examples (not recommended)"
 
+  # Fix for issue #1814: Segmentation fault on Yosemite
+  env :std if (OS.linux? || MacOS.version == :yosemite) && (build.with?("mpi") || build.with?("openblas"))
+
   patch :DATA
   # 1. Fix a minor error in the IDAS example idasRoberts_ASAi_dns.
   # Submitted upstream 2014-06-08; the release cycle for SUNDIALS is long
